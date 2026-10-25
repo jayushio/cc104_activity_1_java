@@ -15,14 +15,48 @@ package org.cc104.solutions;
  * 1. Using <b>linear search</b> (O(n) time complexity) <br/>
  * 2. Using <b>binary search</b> (O(log n) time complexity)
  */
-public class Problem1 {
+        public class Problem1 {
     // Linear search version
     public int countOccurrencesLinear(int[] nums, int target) {
-        return -1;
-    }
+        int count = 0;
 
-    // Binary search version
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == target) {
+                count++;
+            }
+        }
+
+     // Binary search version
     public int countOccurrencesBinary(int[] nums, int target) {
-        return -1;
+        int left = 0;
+        int right = nums.length - 1;
+        int first = -1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] == target) {
+                first = mid;
+                right = mid - 1;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        if (first == -1) {
+            return 0;
+        }
+
+        int count = 0;
+        left = first;
+
+        while (left < nums.length && nums[left] == target) {
+            count++;
+            left++;
+        }
+
+        return count;
     }
 }
